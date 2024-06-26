@@ -1,6 +1,10 @@
 #.Net Microservice Project Template
 ## Overview
-This project is a microservice designed using modern .NET practices. It includes features such as CQRS, MediatR for handling commands and queries, event sourcing, and dependency injection. The project also includes comprehensive unit tests, API versioning, health checks, and authentication.
+This ongoing project involves developing a microservice based on Clean and Vertical
+Slice Architecture principles. It includes Dockerization, 
+health checks, messaging service integration, and Kubernetes orchestration for
+scalable deployment. The goal is to establish a modular, maintainable architecture 
+that optimizes development efficiency and ensures robust system reliability in environments.
 
 ## Architecture
 This architecture is inspired by **Clean and Vertical Slice Architecture** principles,

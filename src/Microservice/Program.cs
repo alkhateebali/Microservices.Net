@@ -3,6 +3,7 @@ using System.Text;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
 using Microservice.Infrastructure.Health;
+using Microservice.Infrastructure.Messaging;
 using Microservice.Persistence.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -57,6 +58,9 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 builder.Logging.ClearProviders().AddConsole().AddDebug();
 
+// Add RabbitMQ 
+builder.Services.AddRabbitMqServices(configuration);
+
 var app = builder.Build();
 
 //Configure the HTTP request pipeline.
@@ -68,5 +72,6 @@ if (app.Environment.IsDevelopment())
 
 app.RegisterEndpoints(new[] { Assembly.GetExecutingAssembly() });
 app.MapHealthChecks("/health");
-
+// var consumer = app.ApplicationServices.GetRequiredService<Consumer>();
+// consumer.StartConsuming();
 app.Run();

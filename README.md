@@ -1,4 +1,4 @@
-#.Net Microservice Project Template
+# Dotnet Microservice Project Template
 ## Overview
 This ongoing project involves developing a microservice based on Clean and Vertical
 Slice Architecture principles. It includes Dockerization, 

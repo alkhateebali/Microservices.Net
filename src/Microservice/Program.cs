@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Health checks
 // Database health
 builder.Services.AddHealthChecks()
-    .AddCheck<DatabaseHealthCheck>("Database");
+    .AddCheck<DatabaseHealthCheck>("database");
 
 //Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 builder.Services.AddMetrics();
@@ -72,6 +72,7 @@ if (app.Environment.IsDevelopment())
 
 app.RegisterEndpoints(new[] { Assembly.GetExecutingAssembly() });
 app.MapHealthChecks("/health");
+// Add RabbitMQ 
 // var consumer = app.ApplicationServices.GetRequiredService<Consumer>();
 // consumer.StartConsuming();
 app.Run();

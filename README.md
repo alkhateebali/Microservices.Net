@@ -41,18 +41,39 @@ Handles application settings and environment configurations, facilitating easy s
 - An IDE such as Visual Studio, Rider or VS Code
 
 ## Getting Started
-Clone the Repository
+
+1. Clone the Repository
 
 ``` bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/alkhateebali/Microservices.Net.git
+cd Microservices.Net
 ```
-## Configuration
+2. Clone the Repository
 
-- App Settings: Configure your settings in appsettings.json.
-- Environment Variables: Set up necessary environment variables for sensitive configurations.
+Ensure that you are in the root directory of the template:
+```bash
+# install the template 
+dotnet new install . 
 
-# Build and Run
+#Result:
+Success:  Microservices.Net installed the following templates:
+Template Name          Short Name     Language  Tags
+---------------------  -------------  --------  ---------------------
+Microservice Template  microtemplate  [C#]      Web/API/Microservices
+```
+3. Create a new project using the template
+
+Navigate to the target directory where you want to create a new project from the template:
+
+```bash
+# Create a new project using the template
+dotnet new microtemplate -o MicroserviceName
+
+# Change to the new project directory
+cd MicroserviceName
+
+```
+4. Run the project
 
 ```bash
 # Restore dependencies
@@ -64,6 +85,13 @@ dotnet build
 # Run the project
 dotnet run
 ```
+### Note
+I'm actively working on adding more configurable options to the template, which will be available in future updates.
+
+## Configuration
+
+- App Settings: Configure your settings in appsettings.json.
+- Environment Variables: Set up necessary environment variables for sensitive configurations.
 
 ## Running Tests
 
@@ -77,8 +105,6 @@ dotnet test
 ## API Documentation
 Swagger is integrated to provide interactive API documentation. Once the project is running, navigate to /swagger to explore and test the API endpoints.
 
-## Template Status
-This project is currently being structured as a reusable template. Progress is ongoing, and updates will be made regularly to enhance its functionality and usability.
 
 ## Contribution
 Feel free to submit issues or pull requests. We welcome contributions to improve this project.

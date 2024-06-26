@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/template",
+  "author": "Ali Al Khateeb",
+  "classifications": ["Web", "API", "Microservices"],
+  "identity": "Devbyali.MicroserviceTemplate",
+  "name": "Microservice Template",
+  "description": "A template for creating microservices with .NET Core and Docker.",
+  "shortName": "microtemplate",
+  "sourceName":"Microservice",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": [
+            "LICENSE",
+            "**/.idea/**"
+          ]
+        }
+      ]
+    }
+  ]
+}

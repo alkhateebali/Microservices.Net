@@ -48,7 +48,7 @@ Handles application settings and environment configurations, facilitating easy s
 git clone https://github.com/alkhateebali/Microservices.Net.git
 cd Microservices.Net
 ```
-2. Clone the Repository
+2. Install the template
 
 Ensure that you are in the root directory of the template:
 ```bash

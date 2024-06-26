@@ -74,15 +74,15 @@ This project is currently being structured as a reusable template. Progress is o
 Feel free to submit issues or pull requests. We welcome contributions to improve this project.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the Proprietary License. See the [LICENSE](LICENSE) file for more details.
 
 ## Acknowledgements
-- MediatR
-- Swagger
-- xUnit
-- Moq
+- [MediatR](https://github.com/jbogard/MediatR)
+- [Swagger](https://swagger.io/)
+- [xUnit](https://xunit.net/)
+- [Moq](https://github.com/devlooped/moq)
 
-##Contact
+## Contact
 For any inquiries or feedback, please contact devbyali@outlook.com.
 
 

@@ -3,10 +3,16 @@
 This project is a microservice designed using modern .NET practices. It includes features such as CQRS, MediatR for handling commands and queries, event sourcing, and dependency injection. The project also includes comprehensive unit tests, API versioning, health checks, and authentication.
 
 ## Architecture
+This architecture is inspired by **Clean and Vertical Slice Architecture** principles,
+focusing on **feature** encapsulation to enhance modularity and maintainability.
+By organizing the codebase into distinct layers—each with a specific
+responsibility—it promotes a clear separation of concerns
+This structured approach ensures that core business logic remains independent
+of external dependencies, facilitating better scalability and adaptability.
 ### Core Layer
 Contains the essential components like domain entities, endpoint definitions, exceptions, and logging utilities.
-Features Layer
-### Each feature is self-contained with commands, domain models, and queries to encapsulate functionality.
+### Features Layer
+Each feature is self-contained with commands, domain models, and queries to encapsulate functionality.
 Persistence Layer
 Manages database context, entity configurations, event publishing, and repository interfaces.
 ### Infrastructure Layer

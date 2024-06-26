@@ -36,7 +36,6 @@ Clone the Repository
 ``` bash
 git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
-
 ```
 ## Configuration
 
@@ -54,7 +53,6 @@ dotnet build
 
 # Run the project
 dotnet run
-
 ```
 
 ## Running Tests
@@ -65,7 +63,6 @@ cd Microservice.Unit.Tests
 
 # Run tests
 dotnet test
-
 ```
 ## API Documentation
 Swagger is integrated to provide interactive API documentation. Once the project is running, navigate to /swagger to explore and test the API endpoints.

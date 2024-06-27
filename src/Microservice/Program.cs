@@ -58,8 +58,12 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 builder.Logging.ClearProviders().AddConsole().AddDebug();
 
+
+#if (messaging)
 // Add RabbitMQ 
 builder.Services.AddRabbitMqServices(configuration);
+#endif
+
 
 var app = builder.Build();
 
@@ -72,7 +76,11 @@ if (app.Environment.IsDevelopment())
 
 app.RegisterEndpoints(new[] { Assembly.GetExecutingAssembly() });
 app.MapHealthChecks("/health");
+
+#if (messaging)
 // Add RabbitMQ 
-// var consumer = app.ApplicationServices.GetRequiredService<Consumer>();
-// consumer.StartConsuming();
+var consumer = app.Services.GetRequiredService<Consumer>();
+consumer.StartConsuming();
+#endif
+
 app.Run();

@@ -1,3 +1,4 @@
+#if (messaging)
 using System.Text;
 using RabbitMQ.Client;
 
@@ -18,3 +19,4 @@ public class Publisher(RabbitMqSettings settings)
         channel.BasicPublish(exchange: "", routingKey: "sample-queue", basicProperties: null, body: body);
     }
 }
+#endif

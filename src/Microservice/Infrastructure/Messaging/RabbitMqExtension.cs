@@ -6,6 +6,7 @@ public  class RabbitMqSettings
     public string? UserName { get; set; }
     public string? Password { get; set; }
 }
+#if (messaging)
 public static class RabbitMqExtension
 {
    
@@ -23,3 +24,4 @@ public static class RabbitMqExtension
         services.AddSingleton<Consumer>();
     }
 }
+#endif

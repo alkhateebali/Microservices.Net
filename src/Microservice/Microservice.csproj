@@ -21,10 +21,11 @@
      <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
-        <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
-
+    <ItemGroup Condition="'$(messaging)' == 'true'">
+        <PackageReference Include="RabbitMQ.Client" Version="6.0.0" />
+    </ItemGroup>
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>

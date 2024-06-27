@@ -6,19 +6,32 @@
   "name": "Microservice Template",
   "description": "A template for creating microservices with .NET Core and Docker.",
   "shortName": "microtemplate",
-  "sourceName":"Microservice",
+  "sourceName": "Microservice",
   "tags": {
     "language": "C#",
     "type": "project"
   },
   "preferNameDirectory": true,
+  "symbols": {
+    "messaging": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": false,
+      "description": "Include Messaging functionality"
+    }
+  },
   "sources": [
     {
+      "exclude": [
+        "LICENSE",
+        "**/.idea/**",
+        "**/.git/**"
+      ],
       "modifiers": [
         {
+          "condition": "(messaging == false)", 
           "exclude": [
-            "LICENSE",
-            "**/.idea/**"
+            "**/Messaging/**"
           ]
         }
       ]

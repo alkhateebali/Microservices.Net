@@ -1,3 +1,4 @@
+#if (messaging)
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -24,4 +25,4 @@ public class Consumer(RabbitMqSettings settings )
         channel.BasicConsume(queue: "sample-queue", autoAck: true, consumer: consumer);
     }
 }
-
+#endif

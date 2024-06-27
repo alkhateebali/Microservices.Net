@@ -73,6 +73,22 @@ dotnet new microtemplate -o MicroserviceName
 cd MicroserviceName
 
 ```
+### Template Options
+
+you can run below command to explore all options 
+
+```bash
+dotnet new microtemplate -h 
+```
+
+#### Options
+*  Include or exclude RabbitMQ messaging feature 
+
+```bash
+dotnet new microtemplate -o MicroserviceName --messaging false
+```
+I'm actively working on adding more configurable options to the template, which will be available in future updates.
+
 4. Run the project
 
 ```bash
@@ -85,8 +101,6 @@ dotnet build
 # Run the project
 dotnet run
 ```
-### Note
-I'm actively working on adding more configurable options to the template, which will be available in future updates.
 
 ## Configuration
 

@@ -1,13 +1,15 @@
-using System.Text.Json;
 using MediatR;
+#if redis
+using System.Text.Json;
+using Microsoft.Extensions.Caching.Distributed;
+#endif
 using Microservice.Core.EndPoints;
+using Microservice.Core.Exceptions;
 using Microservice.Core.Logging;
 using Microservice.Features.Items.Commands;
 using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
-#if redis
-using Microsoft.Extensions.Caching.Distributed;
-#endif
+
 namespace Microservice.Features.Items.Queries;
 
 public class GetItem(Guid id) : IEndpoint, IRequest<Item>
@@ -52,7 +54,7 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
             if (item is null)
             {
                 logger.LogWarning("Item with ID: {ItemId} was not found", request.Id);
-                return null;
+                throw new NotFoundException("Item", request.Id);
             }
 
 #if redis

@@ -1,7 +1,9 @@
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
+using Microservice.Core.Middlewares;
 #if redis
 using Microservice.Infrastructure.Cache;
 #endif
@@ -85,6 +87,8 @@ if (app.Environment.IsDevelopment())
 
 app.RegisterEndpoints(new[] { Assembly.GetExecutingAssembly() });
 app.MapHealthChecks("/health");
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 #if (messaging)
 // Add RabbitMQ 

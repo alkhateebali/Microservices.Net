@@ -88,8 +88,18 @@ dotnet new microtemplate -h
 dotnet new microtemplate -o MicroserviceName --messaging true
 ```
 *  Include  Redis caching feature
+   
+To include Redis caching in your microservice, ensure that Redis
+is installed or running as a Docker container. You can use the following 
+command to create a new microservice with Redis caching enabled:
+
 ```bash
 dotnet new microtemplate -o MicroserviceName --redis true
+```
+To run Redis as a Docker container, you can use the following command
+
+```bash
+docker run --name redis -d -p 6379:6379 redis:alpine
 ```
 more options coming soon 
 4. Run the project 

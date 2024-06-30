@@ -25,14 +25,19 @@ The Infrastructure Layer handles all cross-cutting concerns and dependencies spe
 Handles application settings and environment configurations, facilitating easy setup and management.
 
 ## Features 
+- Clean Architecture and Vertical Slice Architecture (VSA) Blend: Promotes separation of concerns and modular design.
 - CQRS and MediatR: Separates command and query responsibilities, improving code maintainability and scalability.
 - Event Sourcing: Captures changes to an application state as a sequence of events.
 - Dependency Injection: Manages dependencies to improve modularity and testability.
 - Authentication and Authorization.
 - Dynamic endpoints generation.
+- Global Exception Handling Middleware: Catches unhandled exceptions and provides a uniform response structure for errors.
+- Redis Caching (Optional): Handles caching for improved performance. Enabled through the --redis parameter.
+- Messaging (Optional): Includes messaging functionality for microservices communication. Enabled through the --messaging parameter.
 - Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 - Health Checks: Monitors the health of the application and its dependencies.
 - Swagger: Provides interactive API documentation.
+- Docker Support: Containerization for easy deployment and scaling.
 - Unit Tests: Ensures code quality and reliability.
 
 ## Prerequisites

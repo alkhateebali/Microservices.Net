@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using Microservice.Core.Config;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
 using Microservice.Core.Middlewares;
@@ -18,12 +19,12 @@ using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
-//Health checks
-// Database health
-builder.Services.AddHealthChecks()
-    .AddCheck<DatabaseHealthCheck>("database");
-// implement Rate limiting
+// Add service configurations 
+builder.Services.AddServiceConfig(configuration);
+
+
 
 //Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 builder.Services.AddMetrics();
@@ -32,7 +33,7 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.Ordinal));
 });
 // Authentication and Authorization
-var configuration = builder.Configuration;
+
 var jwtSettings = configuration.GetSection("Jwt");
 
 builder.Services.AddAuthentication(options =>
@@ -66,6 +67,10 @@ builder.Services.AddLogging();
 builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 builder.Logging.ClearProviders().AddConsole().AddDebug();
 
+//Health checks -Database health
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>("database");
+// implement Rate limiting
 
 #if (messaging)
 // Add RabbitMQ 

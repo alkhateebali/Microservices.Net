@@ -1,6 +1,6 @@
 #if redis
 namespace Microservice.Infrastructure.Cache;
-public static  class RedisExtension
+public static  class RedisConfig
 {
     public static void AddRedisServices(this IServiceCollection services,
         IConfiguration configuration)

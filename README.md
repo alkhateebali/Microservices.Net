@@ -87,7 +87,7 @@ dotnet new microtemplate -h
 ```bash
 dotnet new microtemplate -o MicroserviceName --messaging true
 ```
-*  Include or exclude Redis caching feature
+*  Include  Redis caching feature
 ```bash
 dotnet new microtemplate -o MicroserviceName --redis true
 ```

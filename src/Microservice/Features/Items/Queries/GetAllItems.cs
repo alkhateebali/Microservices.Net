@@ -23,7 +23,8 @@ public class GetAllItems : IEndpoint, IRequest<IEnumerable<Item>>
             .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 
-    public class Handler(IAppLogger<CreateItem.Handler> logger, IRepositoryBase<Item> itemRepository)
+    public class Handler(IAppLogger<CreateItem.Handler> logger, 
+        IRepositoryBase<Item> itemRepository)
         :IRequestHandler<GetAllItems, IEnumerable<Item>>
 
     {

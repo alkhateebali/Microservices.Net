@@ -2,8 +2,13 @@ using System.Reflection;
 using System.Text;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
+#if redis
+using Microservice.Infrastructure.Cache;
+#endif
 using Microservice.Infrastructure.Health;
+#if messaging
 using Microservice.Infrastructure.Messaging;
+#endif
 using Microservice.Persistence.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Database health
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>("database");
+// implement Rate limiting
 
 //Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 builder.Services.AddMetrics();
@@ -42,7 +48,7 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? string.Empty))
         };
     });
 
@@ -63,7 +69,10 @@ builder.Logging.ClearProviders().AddConsole().AddDebug();
 // Add RabbitMQ 
 builder.Services.AddRabbitMqServices(configuration);
 #endif
-
+#if redis
+// Add Redis cache 
+builder.Services.AddRedisServices(configuration);
+#endif
 
 var app = builder.Build();
 

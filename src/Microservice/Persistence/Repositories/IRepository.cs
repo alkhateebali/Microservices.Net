@@ -10,14 +10,14 @@ public interface IRepositoryBase<T> where T : class
     Task<IEnumerable<T>> GetByConditionAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken);
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task CreateAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
-    }
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(T entity);
+}
 
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected readonly AppDbContext _context;
-        protected readonly DbSet<T> _dbSet;
+        private readonly AppDbContext _context;
+        private readonly DbSet<T> _dbSet;
 
         public RepositoryBase(AppDbContext context)
         {

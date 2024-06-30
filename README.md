@@ -82,12 +82,15 @@ dotnet new microtemplate -h
 ```
 
 #### Options
-*  Include or exclude RabbitMQ messaging feature 
+*  Include RabbitMQ messaging feature 
 
 ```bash
-dotnet new microtemplate -o MicroserviceName --messaging false
+dotnet new microtemplate -o MicroserviceName --messaging true
 ```
-I'm actively working on adding more configurable options to the template, which will be available in future updates.
+*  Include or exclude Redis caching feature
+```bash
+dotnet new microtemplate -o MicroserviceName --redis true
+```
 
 4. Run the project
 

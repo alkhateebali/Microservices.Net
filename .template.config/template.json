@@ -18,6 +18,12 @@
       "datatype": "bool",
       "defaultValue": false,
       "description": "Include Messaging functionality"
+    },
+    "redis": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": false,
+      "description": "Include Redis caching functionality"
     }
   },
   "sources": [
@@ -25,13 +31,27 @@
       "exclude": [
         "LICENSE",
         "**/.idea/**",
-        "**/.git/**"
+        "**/.git/**",
+        "**/.vs/**",
+        "**/*.user",
+        "**/*.suo",
+        "**/*.log",
+        "**/bin/**",
+        "**/obj/**",
+        "**/lib/**",
+        "**/.template.config/**"
       ],
       "modifiers": [
         {
-          "condition": "(messaging == false)", 
+          "condition": "(messaging == false)",
           "exclude": [
             "**/Messaging/**"
+          ]
+        },
+        {
+          "condition": "(redis == false)",
+          "exclude": [
+            "**/Cache/**"
           ]
         }
       ]

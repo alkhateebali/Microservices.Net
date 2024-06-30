@@ -26,6 +26,9 @@
     <ItemGroup Condition="'$(messaging)' == 'true'">
         <PackageReference Include="RabbitMQ.Client" Version="6.0.0" />
     </ItemGroup>
+    <ItemGroup Condition="'$(redis)' == 'true'">
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.6" />
+    </ItemGroup>
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>

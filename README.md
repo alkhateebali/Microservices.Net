@@ -91,8 +91,8 @@ dotnet new microtemplate -o MicroserviceName --messaging true
 ```bash
 dotnet new microtemplate -o MicroserviceName --redis true
 ```
-
-4. Run the project
+more options coming soon 
+4. Run the project 
 
 ```bash
 # Restore dependencies

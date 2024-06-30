@@ -87,10 +87,19 @@ dotnet new microtemplate -h
 ```
 
 #### Options
-*  Include RabbitMQ messaging feature 
+*  Include RabbitMQ messaging feature
+   
+To include RabbitMQ messaging in your microservice, ensure that RabbitMQ
+   is installed or running as a Docker container. You can use the following
+   command to create a new microservice with RabbitMQ messaging enabled:
 
 ```bash
 dotnet new microtemplate -o MicroserviceName --messaging true
+```
+To run RabbitMQ as a Docker container, you can use the following command
+
+```bash
+docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:management-alpine
 ```
 *  Include  Redis caching feature
    

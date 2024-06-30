@@ -45,4 +45,8 @@
       <Compile Remove="Infrastructure\Messaging\Settings.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\Database\Migrations\" />
+    </ItemGroup>
+
 </Project>

@@ -59,7 +59,8 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
     .AddPolicy("User", policy => policy.RequireRole("User"));
 
-builder.Services.AddDatabaseServices();
+builder.Services.AddDatabaseServices(configuration );
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); 
 builder.Services.AddEndpointsApiExplorer();
 

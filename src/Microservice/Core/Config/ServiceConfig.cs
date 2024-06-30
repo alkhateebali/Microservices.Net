@@ -5,6 +5,8 @@ public class ServiceSettings
     public const string Service = "ServiceOptions";
     public bool FeatureToggle { get; set; }
     public string? Environment { get; set; }
+    public bool UseInMemoryDb { get; set; } //  property for in-memory database configuration
+
     
 }
 public static class ServiceConfig

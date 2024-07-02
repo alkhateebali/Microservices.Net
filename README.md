@@ -25,7 +25,6 @@ The Infrastructure Layer handles all cross-cutting concerns and dependencies spe
 Handles application settings and environment configurations, facilitating easy setup and management.
 
 ## Features 
-- Clean Architecture and Vertical Slice Architecture (VSA) Blend: Promotes separation of concerns and modular design.
 - CQRS and MediatR: Separates command and query responsibilities, improving code maintainability and scalability.
 - Event Sourcing: Captures changes to an application state as a sequence of events.
 - Dependency Injection: Manages dependencies to improve modularity and testability.
@@ -37,6 +36,7 @@ Handles application settings and environment configurations, facilitating easy s
 - Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 - Health Checks: Monitors the health of the application and its dependencies.
 - Swagger: Provides interactive API documentation.
+- API Versioning: Supports versioning of API endpoints to ensure backward compatibility and smooth transitions for breaking changes.
 - Docker Support: Containerization for easy deployment and scaling.
 - Unit Tests: Ensures code quality and reliability.
 

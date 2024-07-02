@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MediatR;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
@@ -13,14 +14,18 @@ public class GetAllItems : IEndpoint, IRequest<IEnumerable<Item>>
 
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/items", async (IMediator mediator, CancellationToken cancellationToken) =>
-            {
-                var result = await mediator.Send(new GetAllItems(), cancellationToken);
-                return Results.Ok(result);
-            })
-            .WithTags("Items")
-            .Produces<IEnumerable<Item>>()
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+        Debug.Assert(ApiVersionsConfig.VersionSet != null, "ApiVersionsConfig.VersionSet != null");
+        endpoints.MapGet("/api/v{version:apiVersion}/items",
+                    async (IMediator mediator, CancellationToken cancellationToken) =>
+                    {
+                        var result = await mediator.Send(new GetAllItems(), cancellationToken);
+                        return Results.Ok(result);
+                    })
+                .WithTags("Items")
+                .Produces<IEnumerable<Item>>()
+                .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+                .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
     }
 
     public class Handler(IAppLogger<CreateItem.Handler> logger, 

@@ -14,7 +14,7 @@ public  class CompleteItem(Guid id):IEndpoint, IRequest<Unit>
 
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPut("/items/{id:Guid}/complete", async (Guid id, IMediator mediator, CancellationToken cancellationToken) =>
+        endpoints.MapPut("/api/v{version:apiVersion}/items/{id:Guid}/complete", async (Guid id, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var result = await mediator.Send(new GetItem(id), cancellationToken);
                 return Results.NoContent();
@@ -22,7 +22,10 @@ public  class CompleteItem(Guid id):IEndpoint, IRequest<Unit>
             .WithTags("Items")
             .Produces<Item>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+            .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
+
     }
     public class Handler(IRepositoryBase<Item> itemRepository) : IRequestHandler<CompleteItem, Unit>
     {

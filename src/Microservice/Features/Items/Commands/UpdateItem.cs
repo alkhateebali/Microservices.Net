@@ -9,7 +9,7 @@ namespace Microservice.Features.Items.Commands;
     {
         public static void MapEndpoint(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapPut("/items/{id:guid}",
+            endpoints.MapPut("/api/v{version:apiVersion}/items/{id:Guid}",
                 async (Guid id, Command command, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     if (id != command.Id)
@@ -23,7 +23,10 @@ namespace Microservice.Features.Items.Commands;
                 .WithTags("Items")
                 .Produces(StatusCodes.Status204NoContent)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
-                .ProducesProblem(StatusCodes.Status500InternalServerError);
+                .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+                .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
+
         }
 
         public record Command(Guid Id, string Name) : IRequest;

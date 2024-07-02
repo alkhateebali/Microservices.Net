@@ -9,7 +9,7 @@ public abstract class CreateItem : IEndpoint
 {
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/items",
+        endpoints.MapPost("/api/v{version:apiVersion}/items",
                 async (Command command, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     var result = await mediator.Send(command, cancellationToken);
@@ -17,7 +17,10 @@ public abstract class CreateItem : IEndpoint
                 })
             .WithTags("Items")
             .Produces<Guid>(StatusCodes.Status201Created)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+            .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
+
     }
 
     public record Command(string Name):IRequest<Guid>;

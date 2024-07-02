@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MediatR;
 #if redis
 using System.Text.Json;
@@ -10,6 +11,7 @@ using Microservice.Features.Items.Commands;
 using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
 
+
 namespace Microservice.Features.Items.Queries;
 
 public class GetItem(Guid id) : IEndpoint, IRequest<Item>
@@ -19,15 +21,20 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
 
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/items/{id:Guid}", async (Guid id, IMediator mediator, CancellationToken cancellationToken) =>
-            {
-                var result = await mediator.Send(new GetItem(id), cancellationToken);
-                return Results.Ok(result);
-            })
-            .WithTags("Items")
-            .Produces<Item>()
-            .ProducesProblem(StatusCodes.Status404NotFound)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+        Debug.Assert(ApiVersionsConfig.VersionSet != null, "ApiVersionsConfig.VersionSet != null");
+        endpoints.MapGet("/api/v{version:apiVersion}/items/{id:Guid}",
+                    async (Guid id, IMediator mediator, CancellationToken cancellationToken, HttpContext context) =>
+                    {
+                        var apiVersion = context.GetRequestedApiVersion();
+                        var result = await mediator.Send(new GetItem(id), cancellationToken);
+                        return Results.Ok(new { result, apiVersion });
+                    })
+                .WithTags("Items")
+                .Produces<Item>()
+                .ProducesProblem(StatusCodes.Status404NotFound)
+                .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+                .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
     }
     public class Handler(IAppLogger<CreateItem.Handler> logger
         ,IRepositoryBase<Item> itemRepository

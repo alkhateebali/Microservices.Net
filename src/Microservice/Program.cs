@@ -1,6 +1,9 @@
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using Asp.Versioning.Conventions;
 using Microservice.Core.Config;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
@@ -15,23 +18,22 @@ using Microservice.Infrastructure.Messaging;
 using Microservice.Persistence.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using Microservice.Core.EndPoints;
 
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+// Add Api versioning 
+builder.Services.AddApiVersioningConfig(configuration);
+
 // Add service configurations 
 builder.Services.AddServiceConfig(configuration);
 
-
-
 //Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 builder.Services.AddMetrics();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.Ordinal));
-});
+
+
 // Authentication and Authorization
 
 var jwtSettings = configuration.GetSection("Jwt");
@@ -84,11 +86,22 @@ builder.Services.AddRedisServices(configuration);
 
 var app = builder.Build();
 
+app.NewVersionedApi(ApiVersionsConfig.VersionSet?.ToString());
+
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
+    
 }
 
 app.RegisterEndpoints(new[] { Assembly.GetExecutingAssembly() });

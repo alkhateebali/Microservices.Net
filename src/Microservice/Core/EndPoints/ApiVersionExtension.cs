@@ -31,6 +31,8 @@ public static class ApiVersionExtension
         {
             var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
+            options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.Ordinal));
+
             foreach (var description in provider.ApiVersionDescriptions)
             {
                 options.SwaggerDoc(description.GroupName, new OpenApiInfo()
@@ -38,7 +40,7 @@ public static class ApiVersionExtension
                     Title = $"Service API {description.ApiVersion}",
                     Version = description.ApiVersion.ToString()
                 });
-            }           
+            }
         });
 
     }

@@ -2,7 +2,6 @@ using System.Diagnostics;
 using MediatR;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
-using Microservice.Features.Items.Commands;
 using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
 
@@ -15,7 +14,7 @@ public class GetAllItems : IEndpoint, IRequest<IEnumerable<Item>>
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
         Debug.Assert(ApiVersionsConfig.VersionSet != null, "ApiVersionsConfig.VersionSet != null");
-        endpoints.MapGet("/api/v{version:apiVersion}/items",
+        endpoints.MapGet("/api/items",
                     async (IMediator mediator, CancellationToken cancellationToken) =>
                     {
                         var result = await mediator.Send(new GetAllItems(), cancellationToken);
@@ -28,7 +27,7 @@ public class GetAllItems : IEndpoint, IRequest<IEnumerable<Item>>
                 .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
     }
 
-    public class Handler(IAppLogger<CreateItem.Handler> logger, 
+    public class Handler(IAppLogger<Handler> logger, 
         IRepositoryBase<Item> itemRepository)
         :IRequestHandler<GetAllItems, IEnumerable<Item>>
 

@@ -5,11 +5,11 @@ using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
 
 namespace Microservice.Features.Items.Commands;
-    public class UpdateItem : IEndpoint
+    public  class UpdateItem : IEndpoint
     {
         public static void MapEndpoint(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapPut("/api/v{version:apiVersion}/items/{id:Guid}",
+            endpoints.MapPut("/api/items/{id:Guid}",
                 async (Guid id, Command command, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     if (id != command.Id)
@@ -24,7 +24,7 @@ namespace Microservice.Features.Items.Commands;
                 .Produces(StatusCodes.Status204NoContent)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
-                .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+                .WithApiVersionSet(ApiVersionsConfig.VersionSet ?? throw new InvalidOperationException())
                 .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
 
         }

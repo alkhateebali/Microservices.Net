@@ -5,11 +5,11 @@ using Microservice.Persistence.Repositories;
 
 namespace Microservice.Features.Items.Commands;
 
-public abstract class CreateItem : IEndpoint
+public  class CreateItem : IEndpoint
 {
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/api/v{version:apiVersion}/items",
+        endpoints.MapPost("/api/items",
                 async (Command command, IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     var result = await mediator.Send(command, cancellationToken);
@@ -18,7 +18,7 @@ public abstract class CreateItem : IEndpoint
             .WithTags("Items")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+            .WithApiVersionSet(ApiVersionsConfig.VersionSet ?? throw new InvalidOperationException())
             .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
 
     }

@@ -11,7 +11,7 @@ public class DeleteItem :IEndpoint
       
         public static void MapEndpoint(IEndpointRouteBuilder endpoints)
             {
-                endpoints.MapDelete("/api/v{version:apiVersion}/items/{id:Guid}",
+                endpoints.MapDelete("/api/items/{id:Guid}",
                         async (Guid id, IMediator mediator, CancellationToken cancellationToken) =>
                         {
                             await mediator.Send(new Command(id), cancellationToken);
@@ -21,7 +21,7 @@ public class DeleteItem :IEndpoint
                     .Produces(StatusCodes.Status204NoContent)
                     .ProducesProblem(StatusCodes.Status404NotFound)
                     .ProducesProblem(StatusCodes.Status500InternalServerError)
-                    .WithApiVersionSet(ApiVersionsConfig.VersionSet)
+                    .WithApiVersionSet(ApiVersionsConfig.VersionSet ?? throw new InvalidOperationException())
                     .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
 
             }

@@ -7,7 +7,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Exceptions;
 using Microservice.Core.Logging;
-using Microservice.Features.Items.Commands;
 using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
 
@@ -22,7 +21,7 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
         Debug.Assert(ApiVersionsConfig.VersionSet != null, "ApiVersionsConfig.VersionSet != null");
-        endpoints.MapGet("/api/v{version:apiVersion}/items/{id:Guid}",
+        endpoints.MapGet("/api/items/{id:Guid}",
                     async (Guid id, IMediator mediator, CancellationToken cancellationToken, HttpContext context) =>
                     {
                         var apiVersion = context.GetRequestedApiVersion();
@@ -36,7 +35,7 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
                 .WithApiVersionSet(ApiVersionsConfig.VersionSet)
                 .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
     }
-    public class Handler(IAppLogger<CreateItem.Handler> logger
+    public class Handler(IAppLogger<Handler> logger
         ,IRepositoryBase<Item> itemRepository
 #if redis
         ,IDistributedCache distributedCache

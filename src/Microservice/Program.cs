@@ -1,9 +1,7 @@
-using System.Globalization;
 using System.Reflection;
 using System.Text;
-using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using Asp.Versioning.Conventions;
+using FluentValidation;
 using Microservice.Core.Config;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
@@ -18,7 +16,7 @@ using Microservice.Infrastructure.Messaging;
 using Microservice.Persistence.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microservice.Core.EndPoints;
+using Microservice.Features.Items.Validation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +24,10 @@ var configuration = builder.Configuration;
 
 // Add Api versioning 
 builder.Services.AddApiVersioningConfig(configuration);
+
+// Add Validation 
+builder.Services.AddValidatorsFromAssemblyContaining<CreateItemValidator>();
+
 
 // Add service configurations 
 builder.Services.AddServiceConfig(configuration);

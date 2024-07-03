@@ -1,3 +1,4 @@
+using FluentValidation;
 using MediatR;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
@@ -10,8 +11,13 @@ public  class CreateItem : IEndpoint
     public static void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
         endpoints.MapPost("/api/items",
-                async (Command command, IMediator mediator, CancellationToken cancellationToken) =>
+                async (Command command, IMediator mediator,IValidator<CreateItem.Command> validator,  CancellationToken cancellationToken) =>
                 {
+                    var validationResult = await validator.ValidateAsync(command, cancellationToken);
+                    if (!validationResult.IsValid)
+                    {
+                        return Results.ValidationProblem(validationResult.ToDictionary());
+                    }
                     var result = await mediator.Send(command, cancellationToken);
                     return Results.Created($"/items/{result}", result);
                 })

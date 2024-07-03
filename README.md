@@ -30,6 +30,7 @@ Handles application settings and environment configurations, facilitating easy s
 - Dependency Injection: Manages dependencies to improve modularity and testability.
 - Authentication and Authorization.
 - Dynamic endpoints generation.
+- Validation: Ensures data integrity and consistency across inputs using FluentValidation.
 - Global Exception Handling Middleware: Catches unhandled exceptions and provides a uniform response structure for errors.
 - Redis Caching (Optional): Handles caching for improved performance. Enabled through the --redis parameter.
 - Messaging (Optional): Includes messaging functionality for microservices communication. Enabled through the --messaging parameter.

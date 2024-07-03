@@ -1,3 +1,4 @@
+using FluentValidation;
 using MediatR;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Logging;
@@ -10,13 +11,17 @@ namespace Microservice.Features.Items.Commands;
         public static void MapEndpoint(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapPut("/api/items/{id:Guid}",
-                async (Guid id, Command command, IMediator mediator, CancellationToken cancellationToken) =>
+                async (Guid id, Command command, IMediator mediator,IValidator<Command> validator, CancellationToken cancellationToken) =>
                 {
                     if (id != command.Id)
                     {
                         return Results.BadRequest();
                     }
-
+                    var validationResult = await validator.ValidateAsync(command, cancellationToken);
+                    if (!validationResult.IsValid)
+                    {
+                        return Results.ValidationProblem(validationResult.ToDictionary());
+                    }
                     await mediator.Send(command, cancellationToken);
                     return Results.NoContent();
                 })

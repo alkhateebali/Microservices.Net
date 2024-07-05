@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-deployment
+  labels:
+    app: Microservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: Microservice
+  template:
+    metadata:
+      labels:
+        app: Microservice
+    spec:
+      containers:
+        - name: Microservice-container
+          image: your-docker-image:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: your-secret
+                  key: connectionString
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      imagePullSecrets:
+        - name: your-registry-secret
+      restartPolicy: Always

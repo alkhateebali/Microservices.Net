@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/template",
   "author": "Ali Al Khateeb",
   "classifications": ["Web", "API", "Microservices"],
-  "identity": "Devbyali.MicroserviceTemplate",
+  "identity": "Devbyali.MicroserviceTemplate.CSharp",
   "name": "Microservice Template",
   "description": "A template for creating microservices with .NET Core and Docker.",
   "shortName": "microtemplate",
@@ -39,7 +39,7 @@
         "**/bin/**",
         "**/obj/**",
         "**/lib/**",
-        "**/.template.config/**"
+        "**/.template.config/**/*",
       ],
       "modifiers": [
         {

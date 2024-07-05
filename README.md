@@ -79,6 +79,17 @@ dotnet new microtemplate -o MicroserviceName
 cd MicroserviceName
 
 ```
+For faster development, there is a dotnet new template available for creating a complete feature:
+
+```bash
+# Change to the feature directory
+cd src/MicroserviceName/Features
+
+# Create a new feature using this template
+dotnet new microfeature -f FeatureName
+
+```
+
 ### Template Options
 
 you can run below command to explore all options 

@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Ali Al Khateeb",
+  "classifications": ["Web", "API", "Microservices"],
+  "name": "Microservice Feature",
+  "description":  "Create a new feature",
+  "identity": "Devbyali.MicroserviceFeature.CSharp",
+  "name": "Microservice Feature",
+  "shortName": "microfeature",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sourceName": "Item",
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultNamespace": {
+      "type": "bind",
+      "binding": "msbuild:RootNamespace",
+      "replaces": "Microservice",
+      "defaultValue": "Microservice"
+    },
+    "featureNamePlural": {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": false,
+      "replaces": "Items",
+      "fileRename": "Items"
+    },
+    "featureNamePluralDefault": {
+      "type": "computed",
+      "value": "featureNamePlural && featureNamePlural !== '' ? featureNamePlural : featureName + 's'",
+      "replaces": "Items"
+    },
+    "tempFirstPluralCamel": {
+      "type": "derived",
+      "valueSource": "featureNamePlural",
+      "valueTransform": "lowerCaseFirstLetter"
+    },
+    "tempSecondPluralCamel": {
+      "type": "derived",
+      "valueSource": "featureNamePlural",
+      "valueTransform": "afterFirstLetter"
+    },
+    "featureNamePluralCamel": {
+      "type": "generated",
+      "generator": "join",
+      "replaces": "items",
+      "fileRename": "items",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "ref",
+            "value": "tempFirstPluralCamel"
+          },
+          {
+            "type": "ref",
+            "value": "tempSecondPluralCamel"
+          }
+        ]
+      }
+    },
+    "featureName": {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": true,
+      "replaces": "Item",
+      "fileRename": "Item"
+    },
+    "tempFirstCamel": {
+      "type": "derived",
+      "valueSource": "featureName",
+      "valueTransform": "lowerCaseFirstLetter"
+    },
+    "tempSecondCamel": {
+      "type": "derived",
+      "valueSource": "featureName",
+      "valueTransform": "afterFirstLetter"
+    },
+    "featureNameCamel": {
+      "type": "generated",
+      "generator": "join",
+      "replaces": "item",
+      "fileRename": "item",
+      "parameters": {
+        "symbols": [
+          {
+            "type": "ref",
+            "value": "tempFirstCamel"
+          },
+          {
+            "type": "ref",
+            "value": "tempSecondCamel"
+          }
+        ]
+      }
+    }
+  },
+  "forms": {
+    "lowerCaseFirstLetter": {
+      "identifier": "chain",
+      "steps": [
+        "firstLetter",
+        "lowerCase"
+      ]
+    },
+    "firstLetter": {
+      "identifier": "replace",
+      "pattern": "^(.)(.*)",
+      "replacement": "$1"
+    },
+    "afterFirstLetter": {
+      "identifier": "replace",
+      "pattern": "^(.)(.*)",
+      "replacement": "$2"
+    },
+    "lowerCase": {
+      "identifier": "lowerCase"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        "**/.template.config/**/*",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/.git/**",
+        "**/.idea/**",
+        "**/.vscode/**",
+        "*.nuspec",
+        "**/node_modules/**",
+        "**/.github/**"
+      ]
+    }
+  ]
+}

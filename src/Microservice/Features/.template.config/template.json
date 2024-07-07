@@ -3,9 +3,8 @@
   "author": "Ali Al Khateeb",
   "classifications": ["Web", "API", "Microservices"],
   "name": "Microservice Feature",
-  "description":  "Create a new feature",
+  "description": "Create a new feature",
   "identity": "Devbyali.MicroserviceFeature.CSharp",
-  "name": "Microservice Feature",
   "shortName": "microfeature",
   "tags": {
     "language": "C#",
@@ -126,6 +125,7 @@
         "**/[Bb]in/**",
         "**/[Oo]bj/**",
         "**/.template.config/**/*",
+        "**/*.filelist",
         "**/*.user",
         "**/*.lock.json",
         "**/.git/**",

@@ -79,9 +79,13 @@ dotnet new microtemplate -o MicroserviceName
 cd MicroserviceName
 
 ```
-For faster development, there is a dotnet new template available for creating a complete feature:
+* For faster development, there is a dotnet new template available for creating a complete feature.
+* The project should be restored, otherwise evaluation fails.
 
 ```bash
+#restore the project
+dotnet restore
+
 # Change to the feature directory
 cd src/MicroserviceName/Features
 
@@ -89,6 +93,13 @@ cd src/MicroserviceName/Features
 dotnet new microfeature -f FeatureName
 
 ```
+* Manually add FeatureName to AppDbContext.
+
+```csharp
+  public DbSet<FeatureName> FeatureNames { get; set; } = null!;
+```
+* Create its configuration file FeatureNameConfiguration.cs in EntitesConfig Directory.
+
 
 ### Template Options
 

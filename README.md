@@ -98,7 +98,7 @@ dotnet new microfeature -f FeatureName
 ```csharp
   public DbSet<FeatureName> FeatureNames { get; set; } = null!;
 ```
-* Create its configuration file FeatureNameConfiguration.cs in EntitesConfig Directory.
+* Create its configuration file FeatureNameConfiguration.cs in EntitesConfig Directory .
 
 
 ### Template Options

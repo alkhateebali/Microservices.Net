@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microservice.Core.EndPoints;
 using Microservice.Core.Exceptions;
 using Microservice.Core.Logging;
+using Microservice.Features.Items.Commands;
 using Microservice.Features.Items.Domain;
 using Microservice.Persistence.Repositories;
 
@@ -35,7 +36,7 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
                 .WithApiVersionSet(ApiVersionsConfig.VersionSet)
                 .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
     }
-    public class Handler(IAppLogger<Handler> logger
+    public class Handler(IAppLogger<CreateItem.Handler> logger
         ,IRepositoryBase<Item> itemRepository
 #if redis
         ,IDistributedCache distributedCache

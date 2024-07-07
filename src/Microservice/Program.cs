@@ -10,9 +10,7 @@ using Microservice.Core.Middlewares;
 using Microservice.Infrastructure.Cache;
 #endif
 using Microservice.Infrastructure.Health;
-#if messaging
 using Microservice.Infrastructure.Messaging;
-#endif
 using Microservice.Persistence.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -78,10 +76,9 @@ builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>("database");
 // implement Rate limiting
 
-#if (messaging)
 // Add RabbitMQ 
 builder.Services.AddRabbitMqServices(configuration);
-#endif
+
 #if redis
 // Add Redis cache 
 builder.Services.AddRedisServices(configuration);

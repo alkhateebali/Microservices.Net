@@ -33,7 +33,7 @@ Handles application settings and environment configurations, facilitating easy s
 - Validation: Ensures data integrity and consistency across inputs using FluentValidation.
 - Global Exception Handling Middleware: Catches unhandled exceptions and provides a uniform response structure for errors.
 - Redis Caching (Optional): Handles caching for improved performance. Enabled through the --redis parameter.
-- Messaging (Optional): Includes messaging functionality for microservices communication. Enabled through the --messaging parameter.
+- Messaging with Retries: Integrated MassTransit and RabbitMQ for reliable message queuing and processing with built-in retry mechanisms. 
 - Metrics and Monitoring: Integrate tools like Prometheus and Grafana for monitoring.
 - Health Checks: Monitors the health of the application and its dependencies.
 - Swagger: Provides interactive API documentation.
@@ -110,15 +110,11 @@ dotnet new microtemplate -h
 ```
 
 #### Options
-*  Include RabbitMQ messaging feature
+*   RabbitMQ messaging feature
    
-To include RabbitMQ messaging in your microservice, ensure that RabbitMQ
+RabbitMQ messaging is **included** in the template, ensure that RabbitMQ
    is installed or running as a Docker container. You can use the following
    command to create a new microservice with RabbitMQ messaging enabled:
-
-```bash
-dotnet new microtemplate -o MicroserviceName --messaging true
-```
 To run RabbitMQ as a Docker container, you can use the following command
 
 ```bash
@@ -126,7 +122,7 @@ docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:management-alpine
 ```
 *  Include  Redis caching feature
    
-To include Redis caching in your microservice, ensure that Redis
+**To include** Redis caching in your microservice, ensure that Redis
 is installed or running as a Docker container. You can use the following 
 command to create a new microservice with Redis caching enabled:
 

@@ -13,23 +13,19 @@ public static class DependencyInjection
     {
         services.AddScoped<ISaveChangesInterceptor, EventPublisher>();
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-
-        if (true)
-        {
+        
             services.AddDbContext<AppDbContext>((sp, options) =>
             {
                 options.UseInMemoryDatabase("InMemoryDb");
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             });
-        }
-        else
-        {
-            string? connectionString = configuration.GetConnectionString("Database");
-            services.AddDbContext<AppDbContext>((options) =>
-            {
-                options.UseSqlServer(connectionString);
-            });
-        }
+     
+            // string? connectionString = configuration.GetConnectionString("Database");
+            // services.AddDbContext<AppDbContext>((options) =>
+            // {
+            //     options.UseSqlServer(connectionString);
+            // });
+        
     }
 }
 

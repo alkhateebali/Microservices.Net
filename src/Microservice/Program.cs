@@ -61,7 +61,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
-    .AddPolicy("User", policy => policy.RequireRole("User"));
+    .AddPolicy("User", policy => policy.RequireRole("User")
+        .RequireClaim("scope", "items_api"));;
 
 builder.Services.AddDatabaseServices(configuration );
 
@@ -89,6 +90,8 @@ builder.Services.AddRedisServices(configuration);
 var app = builder.Build();
 
 app.NewVersionedApi(ApiVersionsConfig.VersionSet?.ToString());
+app.UseAuthentication();
+app.UseAuthorization();
 
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

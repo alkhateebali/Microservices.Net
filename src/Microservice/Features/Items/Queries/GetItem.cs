@@ -34,7 +34,9 @@ public class GetItem(Guid id) : IEndpoint, IRequest<Item>
                 .ProducesProblem(StatusCodes.Status404NotFound)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
                 .WithApiVersionSet(ApiVersionsConfig.VersionSet)
-                .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0));
+                .MapToApiVersion(ApiVersionsConfig.GetVersion(1, 0))
+                // Authorization policy example
+                .RequireAuthorization("User_items");
     }
     public class Handler(IAppLogger<CreateItem.Handler> logger
         ,IRepositoryBase<Item> itemRepository
